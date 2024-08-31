@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  docker-spring-api:
+      image: docker-spring-api
+      container_name: spring-docker-container
+      ports:
+        - "8082:8080"
+      networks:
+        - spring-docker
+      depends_on:
+        - mysql
+
+  mysql:
+    image: mysql
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: Millos
+      MYSQL_DATABASE: docker
+    ports:
+      - "3307:3306"
+    networks:
+      - spring-docker
+    volumes:
+      - mysql_docker:/var/lib/mysql
+
+networks:
+  spring-docker:
+
+volumes:
+  mysql_docker:
